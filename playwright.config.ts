@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+import { ENV } from "./src/utils/env";
 
 export default defineConfig({
   testDir: "./tests",
@@ -7,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
 
   use: {
-    baseURL: "https://demo.playwright.dev/todomvc",
+    baseURL: ENV.baseURL,
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
