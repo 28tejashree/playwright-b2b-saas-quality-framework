@@ -1,35 +1,48 @@
-# Playwright B2B SaaS Quality Framework 🚀
+# Playwright Automation Framework
 
-![Playwright Tests](https://github.com/28tejashree/playwright-b2b-saas-quality-framework/actions/workflows/playwright.yml/badge.svg)
+[![Playwright CI](https://github.com/28tejashree/playwright-b2b-saas-quality-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/28tejashree/playwright-b2b-saas-quality-framework/actions/workflows/playwright.yml)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
 ![Playwright](https://img.shields.io/badge/Playwright-Automation-green)
 ![API%20%2B%20UI](https://img.shields.io/badge/API%20%2B%20UI-Testing-orange)
 
-A **production-grade Playwright automation framework** designed the way **real B2B SaaS product companies** build test automation.
+A Playwright-based automation framework covering UI and API testing, built with a focus on stability, maintainability, and CI-friendly execution.
 
-This project demonstrates **advanced UI + API automation**, API-driven authentication, CI integration, and scalable test architecture — aligned with expectations of **US/UK product teams and FAANG-level SDET roles**.
+This repository contains an automation setup that supports UI test automation, API test automation, API-driven authentication for UI tests, selective test execution using tags, and CI execution with retries and failure artifacts. The structure and patterns follow practical automation practices used in product engineering teams.
 
----
+## Technology Stack
+Playwright (TypeScript), Playwright API testing using request context, GitHub Actions for continuous integration, cross-browser execution.
 
-## 🎯 Goals of This Framework
+## Project Structure
+src/core – base test setup and shared fixtures  
+src/api – API clients and helpers  
+src/modules – UI modules and page-level logic  
+src/utils – environment and utility helpers  
+tests/api – API test specifications  
+tests/modules – UI and API-integrated UI tests  
+.github/workflows – CI pipeline configuration  
 
-- Fast, stable UI automation using **API-based login**
-- Clear separation of **UI tests, API tests, and core utilities**
-- CI-ready execution with retries and trace capture
-- Scalable structure suitable for large SaaS applications
-- Showcase **senior-level SDET thinking**, not just test scripts
+## Authentication Strategy
+UI tests do not depend on UI-based login flows. Authentication is performed via API and the authenticated state is injected into the browser context before page load to reduce execution time and improve test stability.
 
----
+## Test Strategy
+UI tests cover authenticated flows, smoke validations, and API-assisted UI scenarios. API tests validate backend behavior independently and provide data for UI tests.
 
-## 🏗️ Tech Stack
+## Test Tagging
+Tests are tagged using @smoke, @regression, @api, and @ui to allow selective execution using Playwright grep functionality.
 
-- **Playwright** (TypeScript)
-- **API Testing** using Playwright `request` context
-- **GitHub Actions** for CI
-- Cross-browser support (Chromium, Firefox, WebKit)
-- Windows / CI friendly setup
+## Stability Handling
+Retries are enabled only in CI. Traces are collected on first retry. Screenshots and videos are captured on failure. Known unstable tests are isolated without blocking pipelines.
 
----
+## Environment Configuration
+Environment-based execution is supported using centralized configuration for cleaner test code.
 
-## 📁 Project Structure (Product-Based)
+## Continuous Integration
+Tests run on every push using GitHub Actions. The pipeline installs dependencies, executes Playwright tests, and uploads reports for debugging when needed.
 
+## Local Execution
+npm install  
+npx playwright install  
+npx playwright test  
+
+## Author
+Tejashree Kamble
