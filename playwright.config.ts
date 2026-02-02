@@ -3,7 +3,8 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   timeout: 30 * 1000,
-  retries: 1,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 2 : undefined,
 
   use: {
     baseURL: "https://demo.playwright.dev/todomvc",
@@ -11,6 +12,8 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
+
+  grep: process.env.TAGS ? new RegExp(process.env.TAGS) : undefined,
 
   projects: [
     { name: "Chromium", use: { browserName: "chromium" } },

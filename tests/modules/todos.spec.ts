@@ -14,4 +14,23 @@ test.describe("Dashboard Module @ui", () => {
     await expect(page).toHaveTitle(/TodoMVC/);
     expect(user.name).toBeDefined();
   });
+
+  test("@smoke @ui User logged in via API can access dashboard", async ({
+    page,
+    authToken,
+  }) => {
+    await page.addInitScript((token) => {
+      window.localStorage.setItem("auth_token", token);
+    }, authToken);
+
+    await page.goto("https://example.cypress.io/todo");
+
+    await expect(page).toHaveURL(/todo/);
+  });
+
+  test("@regression flaky demo test", async ({ page }) => {
+    test.fixme(true, "Known flaky due to third-party dependency");
+    await page.goto("https://example.cypress.io/todo");
+    await expect(page.locator(".todo-list li")).toHaveCount(3);
+  });
 });

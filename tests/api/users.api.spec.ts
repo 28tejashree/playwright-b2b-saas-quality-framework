@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Users API @api", () => {
-  test("@smoke Get user by id", async ({ request }) => {
+  test("@api @regression Get user by id", async ({ request }) => {
     const response = await request.get(
       "https://jsonplaceholder.typicode.com/users/1",
     );
